@@ -54,7 +54,7 @@ def m_webscrapper():
 
 
 
-scrape_data = m_webscrapper()
+scrape_data = m_webscrapper() #create an object reference for the function
 
     #print(multi_web_scrapper.head(30))
     #creates a csv file from the generated data
@@ -73,7 +73,7 @@ scrape_data = m_webscrapper()
 
 connection = mysql.connector.connect(host = 'localhost', user = 'root', password = 'root', database = 'ng_trade')
 
-cur = connection.cursor()
+cur = connection.cursor() #object reference for the connection
 connect_engine = create_engine('mysql://root:root@localhost/ng_trade')
 
 
