@@ -66,8 +66,14 @@ scrape_data = m_webscrapper()
 ####                        LOADING DATA TO A DATABASE                                     ####
 ###############################################################################################
 
+
+
 # Using SQLAlchemy
 # Create a connection to our database
+
+connection = mysql.connector.connect(host = 'localhost', user = 'root', password = 'root', database = 'ng_trade')
+
+cur = connection.cursor()
 connect_engine = create_engine('mysql://root:root@localhost/ng_trade')
 
 
