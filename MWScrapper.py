@@ -7,7 +7,13 @@ All could have been done using a for loop but for re-usability a fuction is used
 import requests
 import pandas as pd
 from bs4 import BeautifulSoup as BS
+import mysql.connector
+from sqlalchemy import create_engine
 
+
+###############################################################################################
+####                        EXTRACT THE DATA                                               ####
+###############################################################################################
 #creates an empty list for storage later
 all_data  = [] 
 def m_webscrapper():
@@ -37,9 +43,46 @@ def m_webscrapper():
         #print(all_data)
     #creates a DataFrame for the table display
     multi_web_scrapper = pd.DataFrame(all_data[1:], columns=['Symbol', 'Low', 'Open', 'Price', 'Volume', 'High', 'Change', 'Date'])
+    return multi_web_scrapper
+    #multi_web_scrapper.to_csv('Multi-Page Web Scrapper.csv', index= False)
+
+
+    ###############################################################################################
+    ####                        DATA TRANSFORMATION                                            ####
+    ###############################################################################################
+    #multi_web_scrapper['High_low_value'] = multi_web_scrapper['High'].astype(int) * multi_web_scrapper['Low'].astype(int)
+
+
+
+scrape_data = m_webscrapper()
+
     #print(multi_web_scrapper.head(30))
     #creates a csv file from the generated data
-    multi_web_scrapper.to_csv('Multi-Page Web Scrapper.csv', index= False)
+   
 
 #calls the function
-m_webscrapper()
+
+###############################################################################################
+####                        LOADING DATA TO A DATABASE                                     ####
+###############################################################################################
+
+# Using SQLAlchemy
+# Create a connection to our database
+connect_engine = create_engine('mysql://root:root@localhost/ng_trade')
+
+
+ #Load data from pandas dataframe to sql
+scrape_data.to_sql('trade_data', con = connect_engine, if_exists = 'append',  index = False)
+
+
+"""
+# Using mysql connector
+connection = mysql.connector.connect(host = 'localhost', user = 'root', password = 'root', database = 'ng_trade')
+cur = connection.cursor()
+with open('Multi-Page Web Scrapper.csv', 'r') as data:
+    next(data)
+    cur.copy_from(data, trading_data, sep = ',')
+
+"""
+
+
