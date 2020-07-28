@@ -71,10 +71,10 @@ scrape_data = m_webscrapper() #create an object reference for the function
 # Using SQLAlchemy
 # Create a connection to our database
 
-connection = mysql.connector.connect(host = 'localhost', user = 'root', password = 'root', database = 'ng_trade')
+connection = mysql.connector.connect(host = 'localhost', user = 'your_user_name', password = 'your_password', database = 'ng_trade')
 
 cur = connection.cursor() #object reference for the connection
-connect_engine = create_engine('mysql://root:root@localhost/ng_trade')
+connect_engine = create_engine('mysql://"user_name":"your_pasword"@localhost/ng_trade')
 
 
  #Load data from pandas dataframe to sql
