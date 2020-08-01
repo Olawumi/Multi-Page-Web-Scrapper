@@ -83,12 +83,11 @@ scrape_data.to_sql('trade_data', con = connect_engine, if_exists = 'append',  in
 
 """
 # Using mysql connector
-connection = mysql.connector.connect(host = 'localhost', user = 'root', password = 'root', database = 'ng_trade')
+connection = mysql.connector.connect(host = 'localhost', user = 'your_user_name', password = 'your_password', database = 'ng_trade')
 cur = connection.cursor()
 with open('Multi-Page Web Scrapper.csv', 'r') as data:
     next(data)
     cur.copy_from(data, trading_data, sep = ',')
 
 """
-
 
